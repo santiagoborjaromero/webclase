@@ -1,0 +1,178 @@
+<div class="card my-5">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-end mb-4">
+        <h3 class="mb-0">
+          <b>{{ Title }}</b>
+        </h3>
+      </div>
+      <form [formGroup]="frmForm" (ngSubmit)="guardar()"  (keydown.enter)="$event.preventDefault()">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <td width="20%"><label class="form-label" for="Fecha">Fecha *</label></td>
+                    <td width="20%"><label class="form-label" for="NumeroDoc">Numero de Documento *</label></td>
+                    <td><label class="form-label" for="Clientes_idClientes">Cliente *</label></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="date" class="form-control" id="Fecha" formControlName="Fecha" placeholder="aaaa/mm/dd" />
+                        @if (frmForm.get('Fecha').invalid && frmForm.get('Fecha').touched) {
+                            <div>
+                              @if (frmForm.get('Fecha').hasError('required')) {
+                                <small class="text-danger">La fecha es requerida</small>
+                              }
+                            </div>
+                        }
+                    </td>
+                    <td><input type="text" readonly class="form-control" id="NumeroDoc" formControlName="NumeroDoc" placeholder="000-000-0000000" /></td>
+                    <td>
+                        <select class="form-control" id="Clientes_idClientes" formControlName="Clientes_idClientes">
+                            @for (item of lstClientes; track $index) {
+                                <option value="{{item.idClientes}}">{{item.Nombres}}</option>
+                            }
+                        </select>
+                        @if (frmForm.get('Clientes_idClientes').invalid && frmForm.get('Clientes_idClientes').touched) {
+                            <div>
+                              @if (frmForm.get('Clientes_idClientes').hasError('required')) {
+                                <small class="text-danger">El cliente es requerido</small>
+                              }
+                            </div>
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-striped" width="100%">
+            <thead>
+                <tr>
+                    <th width="20%">Codigo</th>
+                    <th >Producto</th>
+                    <th width="10%">Cantidad</th>
+                    <th width="10%">Precio</th>
+                    <th width="10%">Total</th>
+                    <th width="10%">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" class="text-end">SubTotal IVA {{porcentajeIVA}}%</td>
+                    <td colspan="2">
+                        <input type="text" (blur)="totalizar()" class="form-control text-end" id="Sub_total_iva" 
+                        formControlName="Sub_total_iva"/>
+                        @if (frmForm.get('Sub_total_iva').invalid && frmForm.get('Sub_total_iva').touched) {
+                            <div>
+                                @if (frmForm.get('Sub_total_iva').hasError('required')) {
+                                    <small class="text-danger">El Sub total iva es requerido </small>
+                                }
+                            </div>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="text-end">SubTotal IVA 0%</td>
+                    <td colspan="2"><input type="text" (blur)="totalizar()" class="form-control text-end" id="Sub_total" 
+                        formControlName="Sub_total"/></td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="text-end">SubTotal General</td>
+                    <td colspan="2"><input type="text" readonly class="form-control text-end" id="SubTotal" 
+                        [value]="frmForm.controls['SubTotal'].value | number:'1.2-5' " placeholder="0.00" /></td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="text-end">IVA {{porcentajeIVA}}%</td>
+                    <!-- <td colspan="2"><input type="text" readonly class="form-control text-end" id="Valor_IVA" formControlName="Valor_IVA" placeholder="0.00" /></td> -->
+                    <td colspan="2"><input type="text" readonly class="form-control text-end" id="Valor_IVA" 
+                        [value]="frmForm.controls['Valor_IVA'].value | number:'1.2-5'" placeholder="0.00" /></td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="text-end">Total</td>
+                    <td colspan="2">
+                        <input type="text" readonly 
+                            [value]="frmForm.controls['Total'].value | number:'1.2-5'"
+                            class="form-control text-end" 
+                            id="Total" 
+                            placeholder="0.00" />
+                            @if (frmForm.get('Total').invalid) {
+                                <div>
+                                    @if (frmForm.get('Total').hasError('min')) {
+                                        <small class="text-danger">El total debe ser mayor a cero</small>
+                                    }
+                                </div>
+                            }
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="form-group mb-3">
+            <button type="submit" class="btn btn-primary mr-1" [disabled]="frmForm.invalid">Grabar</button>
+            <button (click)="cancelar()" class="btn btn-danger">Cancelar</button>
+        </div>
+
+<!-- 
+
+
+
+        <div class="form-group mb-3">
+          <label class="form-label" for="Cedula">Cedula *</label>
+          <input type="text" class="form-control" id="Cedula" formControlName="Cedula" placeholder="Cedula" />
+          @if (frmForm.get('Cedula').invalid && frmForm.get('Cedula').touched) {
+            @if (frmForm.get('Cedula').hasError('required')) {
+              <div class="text-danger">La cedula es requerida</div>
+            }
+            @if (frmForm.get('Cedula').hasError('cedulaInvalida')) {
+              <div class="text-danger">La cedula ingresada no es correcta</div>
+            }
+          }
+        </div>
+        <div class="form-group mb-3">
+          <label class="form-label" for="Nombres">Nombres Completos *</label>
+          <input type="text" class="form-control" id="Nombres" formControlName="Nombres" placeholder="Nombres" />
+          @if (frmForm.get('Nombres').invalid && frmForm.get('Nombres').touched) {
+            @if (frmForm.get('Nombres').hasError('required')) {
+              <div class="text-danger">El nombre es requerido</div>
+            }
+          }
+        </div>
+        <div class="form-group mb-3">
+          <label class="form-label" for="Direccion">Direccion *</label>
+          <input type="text" class="form-control" id="Direccion" formControlName="Direccion" placeholder="Direccion" />
+          @if (frmForm.get('Direccion').invalid && frmForm.get('Direccion').touched) {
+            @if (frmForm.get('Direccion').hasError('required')) {
+              <div class="text-danger">La Direccion es requerida</div>
+            }
+          }
+        </div>
+        <div class="form-group mb-3">
+          <label class="form-label" for="Telefono">Telefono *</label>
+          <input type="text" class="form-control" id="Telefono" formControlName="Telefono" placeholder="Telefono" />
+          @if (frmForm.get('Telefono').invalid && frmForm.get('Telefono').touched) {
+            @if (frmForm.get('Telefono').hasError('required')) {
+              <div class="text-danger">El Telefono es requerido</div>
+            }
+          }
+        </div>
+        <div class="form-group mb-3">
+          <label class="form-label" for="Correo">Correo *</label>
+          <input type="text" class="form-control" id="Correo" formControlName="Correo" placeholder="Correo" />
+          @if (frmForm.get('Correo').invalid && frmForm.get('Correo').touched) {
+            @if (frmForm.get('Correo').hasError('required')) {
+              <div class="text-danger">El Correo es requerido</div>
+            }
+            @if (frmForm.get('Correo').hasError('email')) {
+              <div class="text-danger">El Correo es requerido</div>
+            }
+          }
+        </div> -->
+        
+      </form>
+    </div>
+  </div>
+  

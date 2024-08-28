@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-sm-12">
+      <app-card cardTitle="Lista de proveedores" blockClass="pc-component">
+
+        <div class="row">
+            <div class="col text-end">
+                <button  (click)="nuevo()" class="btn btn-primary mr-1">Nuevo</button>
+                <button  (click)="loadProveedores()" class="btn btn-success">Refrescar</button>
+            </div>
+        </div>
+        
+        <div class="row mt-1">
+            <div class="col text-end">
+                <table class="table table-hover table-striped">
+                    <thead>
+                      <tr>
+                        <th class="text-start">ID</th>
+                        <th class="text-start">Empresa</th>
+                        <th class="text-start">Contacto</th>
+                        <th class="text-start">Telefono Contacto</th>
+                        <th class="text-center">Accion</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @for (item of lstProveedores; track $index) {
+                        <tr>
+                          <td width="10%" class="text-start">{{item.idProveedores}}</td>
+                          <td class="text-start">{{item.Nombre_Empresa}}</td>
+                          <td class="text-start">{{item.Contacto_Empresa}}</td>
+                          <td class="text-start">{{item.Telefono_Contacto}}</td>
+                          <td width="20%" class="text-center">
+                            <button (click)="editar(item.idProveedores)" class="btn btn-primary mr-1">Editar</button>
+                            <button (click)="eliminar(item.idProveedores)" class="btn btn-danger">Eliminar</button>
+                          </td>
+                        </tr>
+                      }
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+      </app-card>
+    </div>
+  </div>
+  
