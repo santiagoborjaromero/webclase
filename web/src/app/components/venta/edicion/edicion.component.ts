@@ -100,7 +100,7 @@ export class EdicionComponent {
     });
   };
 
-  loadClientes(){
+  loadClientes = ()=>{
     this.clienteSvc.getTodos().subscribe({
       next: (resp: any) => {
         try {
@@ -124,7 +124,7 @@ export class EdicionComponent {
     });
   }
 
-  guardar() {
+  guardar = () => {
     let dataFactura:any = {
       idFactura: this.idFactura,
       Fecha: moment(this.frmForm.controls["Fecha"].value).format("YYYY-MM-DD"),
@@ -164,7 +164,7 @@ export class EdicionComponent {
     this.router.navigate(['ventas']);
   };
 
-  totalizar(){
+  totalizar = () =>{
     let Sub_total = parseFloat(this.frmForm.controls["Sub_total"].value.toString());
     let Sub_total_iva = parseFloat(this.frmForm.controls["Sub_total_iva"].value.toString());
     let SubTotal = 0;

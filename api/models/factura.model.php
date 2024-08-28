@@ -21,7 +21,7 @@ class Factura {
                 f.Sub_total + f.Sub_total_iva + f.Valor_IVA as `Total`
             FROM factura f
             INNER JOIN clientes c ON c.idClientes = f.Clientes_idClientes
-            ORDER BY f.Fecha
+            ORDER BY f.Fecha desc, f.idFactura desc
         ";
         $datos = mysqli_query($con, $cadena);
         $con->close();
@@ -46,7 +46,7 @@ class Factura {
             FROM factura f
                 INNER JOIN clientes c ON c.idClientes = f.Clientes_idClientes
             WHERE  `idFactura` = $idFactura
-            ORDER BY f.Fecha desc, f.idFactura desc
+            
         ";
         // $cadena = "SELECT * FROM `factura` WHERE `idFactura` = $idFactura";
         $datos = mysqli_query($con, $cadena);

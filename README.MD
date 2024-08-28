@@ -1,11 +1,12 @@
 # Angular
-Santiago Borja Romero, Sexto, Ing. Software. Uniandes
+>Santiago Borja Romero, <br>
+Sexto, <br>
+Ingenieria de Software<br>
+UNIANDES
+
 ### Web
 
-Lugar del entorno virutal
-```
-.\..\..\..\..\..\..\..\Desarrollo\angular\angularenv\Scripts\activate
-```
+
 
 Instalacion de Libreria PNPM
 
@@ -22,7 +23,7 @@ Crear Servicios
 ```
 ng g service {path y nombre del servicio}
 ```
-http://localhost/uniandes/03mvc/controllers/proveedores.controller.php?op=todos
+http://localhost/uniandes/03mvc/api/controllers/proveedores.controller.php?op=todos
 
 sweetalert2
 ```
@@ -38,4 +39,10 @@ https://codedthemes.com/item/mantis-angular-free-admin-template/
 Opcion2
 ```
 https://codedthemes.com/item/datta-able-angular-lite/
+```
+
+
+Lugar del entorno virutal
+```
+.\..\..\..\..\..\..\..\Desarrollo\angular\angularenv\Scripts\activate
 ```
