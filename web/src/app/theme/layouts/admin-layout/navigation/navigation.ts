@@ -58,7 +58,7 @@ export const NavigationItems: NavigationItem[] = [
         type: 'item',
         classes: 'nav-item',
         url: '/ventas',
-        icon: 'login',
+        icon: 'profile',
         target: false,
         breadcrumbs: false
       },
@@ -77,11 +77,32 @@ export const NavigationItems: NavigationItem[] = [
         type: 'item',
         classes: 'nav-item',
         url: '/proveedores',
-        icon: 'login',
+        icon: 'profile',
         target: false,
         breadcrumbs: false
       },
-      // {
+ 
+      {
+        id: 'clientes',
+        title: 'Clientes',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/clientes',
+        icon: 'profile',
+        target: false,
+        breadcrumbs: false
+      },
+      {
+        id: 'usuarios',
+        title: 'Usuarios',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/usuarios',
+        icon: 'user',
+        target: false,
+        breadcrumbs: false
+      },
+           // {
       //   id: 'productos',
       //   title: 'Productos',
       //   type: 'item',
@@ -91,16 +112,6 @@ export const NavigationItems: NavigationItem[] = [
       //   target: false,
       //   breadcrumbs: false
       // },
-      {
-        id: 'clientes',
-        title: 'Clientes',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/clientes',
-        icon: 'login',
-        target: false,
-        breadcrumbs: false
-      },
       // {
       //   id: 'impuestos',
       //   title: 'Impuestos',

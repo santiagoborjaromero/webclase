@@ -1,5 +1,6 @@
+import { General } from './../../../../../functions/general.functions';
 // angular import
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 // project import
@@ -28,6 +29,7 @@ import {
   ArrowRightOutline,
   GithubOutline
 } from '@ant-design/icons-angular/icons';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-nav-right',
@@ -39,8 +41,13 @@ import {
 export class NavRightComponent {
   @Input() styleSelectorToggle!: boolean;
   @Output() Customize = new EventEmitter();
+
+  private readonly generalFn = inject(General);
+  private readonly usuarioSvc = inject(UsuariosService);
+
   windowWidth: number;
   screenFull: boolean = true;
+  public user:any={};
 
   constructor(private iconService: IconService) {
     this.windowWidth = window.innerWidth;
@@ -108,4 +115,18 @@ export class NavRightComponent {
       title: 'History'
     }
   ];
+
+
+  ngOnInit(): void {
+    this.user = null;
+    let usua_enc = this.generalFn.desencriptar(sessionStorage.getItem("usuario"))
+    if (usua_enc!=""){
+      this.user = JSON.parse(usua_enc);
+    }else{
+    }
+  }
+
+  logout(){
+    this.usuarioSvc.logout();
+  }
 }
