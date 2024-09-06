@@ -15,7 +15,6 @@ export class noAuthGuard{
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       let statusLogged = this.usuariosSvc.isLoggedIn();
-      // console.log("noAuth", statusLogged)
       if (statusLogged == "false" || statusLogged===undefined || statusLogged===null) {
         return true;
       }

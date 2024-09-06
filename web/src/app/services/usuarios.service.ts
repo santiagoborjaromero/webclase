@@ -19,6 +19,10 @@ export class UsuariosService {
 
   apiurl:string=`http://localhost/uniandes/03mvc/api/controllers/${this.controller}.controller.php?op=`;
 
+
+  constructor(){
+  }
+
   getTodos(): Observable<UsuariosInterface[]> {
     return this.http.get<UsuariosInterface[]>(this.apiurl + "todos");
   }

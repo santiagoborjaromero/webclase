@@ -22,7 +22,7 @@
             </div>
             <div class="form-group mb-3">
               <label class="form-label" for="Contrasenia">Contraseña</label>
-              <input type="Contrasenia" class="form-control" id="Contrasenia" formControlName="Contrasenia" placeholder="********" value="1234" />
+              <input type="password" class="form-control" id="Contrasenia" formControlName="Contrasenia" placeholder="********" value="1234" />
               @if (frmForm.get('Contrasenia').invalid && frmForm.get('Contrasenia').touched) {
                 @if (frmForm.get('Contrasenia').hasError('required')) {
                   <div class="text-danger">La contraseña es requerida</div>
