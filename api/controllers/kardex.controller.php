@@ -1,15 +1,10 @@
 <?PHP 
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-header("Allow: GET, POST, OPTIONS, PUT, DELETE");
-$method = $_SERVER["REQUEST_METHOD"];
-if($method == "OPTIONS") {die();}
-
-//TODO: Controlador de iva
+include_once("cors.php");
+//TODO: Controlador de kardex
 
 require_once("../models/kardex.model.php");
 require_once("../middleware/middleware.php");
+require_once("./general.controller.php");
 
 $kardex = new Kardex;   //TODO: se instancia la clase kardex
 $data = Middleware::request();

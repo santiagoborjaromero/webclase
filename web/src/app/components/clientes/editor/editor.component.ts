@@ -15,11 +15,12 @@ import { verificarCedula } from 'udv-ec';
 import { ClienteInterface } from '../../../interfaces/cliente.interface';
 import { ClienteService } from 'src/app/services/cliente.service';
 import Swal from 'sweetalert2';
+import { SharedModule } from 'src/app/theme/shared/shared.module';
 
 @Component({
   selector: 'app-editor',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, FormsModule, RouterLinkActive, ReactiveFormsModule],
+  imports: [RouterOutlet, CommonModule, FormsModule, RouterLinkActive, ReactiveFormsModule, SharedModule],
   templateUrl: './editor.component.html',
   styleUrl: './editor.component.scss'
 })

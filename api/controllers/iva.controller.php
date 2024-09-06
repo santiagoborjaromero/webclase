@@ -1,16 +1,11 @@
 <?PHP 
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-header("Allow: GET, POST, OPTIONS, PUT, DELETE");
-$method = $_SERVER["REQUEST_METHOD"];
-if($method == "OPTIONS") {die();}
-
+include_once("cors.php");
 
 //TODO: Controlador de iva
 
 require_once("../models/iva.model.php");
 require_once("../middleware/middleware.php");
+require_once("./general.controller.php");
 
 $iva = new IVA;   //TODO: se instancia la clase iva
 $data = Middleware::request();
