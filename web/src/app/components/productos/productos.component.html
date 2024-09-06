@@ -14,12 +14,13 @@
                 <table class="table table-hover table-striped">
                     <thead>
                       <tr>
-                        <th class="text-start">ID</th>
+                        <th width="5%" class="text-start">ID</th>
                         <th class="text-start">Codigo</th>
                         <th class="text-start">Nombre</th>
                         <th class="text-center">Graba IVA</th>
                         <th class="text-center">Unidad Medida</th>
                         <th class="text-start">IVA</th>
+                        <th class="text-end">Cantidad</th>
                         <th class="text-end">Valor Compra</th>
                         <th class="text-end">Valor Venta</th>
                         <th class="text-center">Accion</th>
@@ -34,6 +35,7 @@
                           <td class="text-center">{{item.Graba_IVA == 0 ? 'No' : 'Si'}}</td>
                           <td class="text-center">{{item.Unidad_Medida}}</td>
                           <td class="text-start">{{item.IVA_Detalle}}</td>
+                          <td class="text-end">{{item.Cantidad | number:'1.2-3'}}</td>
                           <td class="text-end">{{item.Valor_Compra | number:'1.2-3'}}</td>
                           <td class="text-end">{{item.Valor_Venta | number:'1.2-3'}}</td>
                           <td width="20%" class="text-center">
