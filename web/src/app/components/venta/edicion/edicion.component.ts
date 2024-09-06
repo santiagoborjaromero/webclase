@@ -17,11 +17,12 @@ import { FacturaService} from 'src/app/services/factura.service';
 import { FacturaInterface } from '../../../interfaces/factura.interface';
 import { ClienteInterface } from 'src/app/interfaces/cliente.interface';
 import { ClienteService } from 'src/app/services/cliente.service';
+import { SharedModule } from 'src/app/theme/shared/shared.module';
 
 @Component({
   selector: 'app-edicion',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, FormsModule, RouterLinkActive, ReactiveFormsModule, DecimalPipe],
+  imports: [RouterOutlet, CommonModule, FormsModule, RouterLinkActive, ReactiveFormsModule, DecimalPipe, SharedModule],
   templateUrl: './edicion.component.html',
   styleUrl: './edicion.component.scss'
 })
