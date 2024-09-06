@@ -1,15 +1,10 @@
 <?PHP 
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-header("Allow: GET, POST, OPTIONS, PUT, DELETE");
-$method = $_SERVER["REQUEST_METHOD"];
-if($method == "OPTIONS") {die();}
-
+include_once("cors.php");
 //TODO: Controlador de productos
 
 require_once("../models/productos.model.php");
 require_once("../middleware/middleware.php");
+require_once("./general.controller.php");
 
 $productos = new Productos;   //TODO: se instancia la clase productos
 $data = Middleware::request();
@@ -34,21 +29,37 @@ switch ($_GET["op"]) {
         break;
     case "insertar":
         //TODO: Proceso para insertar un proveedor en la tabla productos
-        $Codigo_Barras = $data["Codigo_Barras"];
+        $Codigo_Barras  = $data["Codigo_Barras"];
         $Nombre_Producto = $data["Nombre_Producto"];
         $Graba_IVA = $data["Graba_IVA"];
+        $idUnidad_Medida = $data["idUnidad_Medida"];
+        $idIVA = $data["idIVA"];
+        $Cantidad = $data["Cantidad"];
+        $Valor_Compra = $data["Valor_Compra"];
+        $Valor_Venta = $data["Valor_Venta"];
+        $idProveedores = $data["idProveedores"];
+
         $datos = array();
-        $datos = $productos->insertar($Codigo_Barras, $Nombre_Producto, $Graba_IVA);
+        $datos = $productos->insertar($Codigo_Barras, $Nombre_Producto, $Graba_IVA, $idUnidad_Medida, $idIVA, 
+            $Cantidad, $Valor_Compra, $Valor_Venta, $idProveedores);
         echo GeneralController::formatoSalida("ok", $datos);
         break;
     case "actualizar":
         //TODO: Proceso para actualizar un registro de la tabla productos
+        $idKardex = $data["idKardex"];
         $idProductos = $data["idProductos"];
-        $Codigo_Barras = $data["Codigo_Barras"];
+        $Codigo_Barras  = $data["Codigo_Barras"];
         $Nombre_Producto = $data["Nombre_Producto"];
         $Graba_IVA = $data["Graba_IVA"];
+        $idUnidad_Medida = $data["idUnidad_Medida"];
+        $idIVA = $data["idIVA"];
+        $Cantidad = $data["Cantidad"];
+        $Valor_Compra = $data["Valor_Compra"];
+        $Valor_Venta = $data["Valor_Venta"];
+        $idProveedores = $data["idProveedores"];
         $datos = array();
-        $datos = $productos->actualizar($idProductos, $Codigo_Barras, $Nombre_Producto, $Graba_IVA);
+        $datos = $productos->actualizar($idKardex, $idProductos, $Codigo_Barras, $Nombre_Producto, $Graba_IVA, $idUnidad_Medida, 
+                    $idIVA, $Cantidad, $Valor_Compra, $Valor_Venta, $idProveedores);
         echo GeneralController::formatoSalida("ok", $datos);
         break;
     case "eliminar":

@@ -1,0 +1,152 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="{{ Title }}" blockClass="pc-component">
+      <form [formGroup]="frmForm" (ngSubmit)="guardar()">
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="form-group mb-3">
+              <label class="form-label" for="Codigo_Barras">Codigo de barras *</label>
+              <input type="text" class="form-control" id="Codigo_Barras" formControlName="Codigo_Barras" placeholder="Codigo_Barras" />
+              @if (frmForm.get('Codigo_Barras').invalid && frmForm.get('Codigo_Barras').touched) {
+                @if (frmForm.get('Codigo_Barras').hasError('required')) {
+                  <div class="text-danger">El Codigo de barras es requerido</div>
+                }
+              }
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group mb-3">
+              <label class="form-label" for="Nombre_Producto">Nombre del Producto *</label>
+              <input
+                type="text"
+                class="form-control"
+                id="Nombre_Producto"
+                formControlName="Nombre_Producto"
+                placeholder="Nombre_Producto"
+              />
+              @if (frmForm.get('Nombre_Producto').invalid && frmForm.get('Nombre_Producto').touched) {
+                @if (frmForm.get('Nombre_Producto').hasError('required')) {
+                  <div class="text-danger">El nombre del producto es requerido</div>
+                }
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 col-md-4">
+            <div class="form-group mb-3">
+              <label class="form-label" for="Graba_IVA">Graba IVA ? *</label>
+              <select class="form-control" id="Graba_IVA" formControlName="Graba_IVA">
+                <option value="0">No</option>
+                <option value="1">Si</option>
+              </select>
+              @if (frmForm.get('Graba_IVA').invalid && frmForm.get('Graba_IVA').touched) {
+                <div>
+                  @if (frmForm.get('Graba_IVA').hasError('required')) {
+                    <div class="text-danger">Graba IVA es requerido</div>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="form-group mb-3">
+              <label class="form-label" for="idIVA">IVA % *</label>
+              <select class="form-control" id="idIVA" formControlName="idIVA">
+                @for (item of lstIVA; track $index) {
+                  <option [value]="item.idIVA">{{ item.Detalle }}</option>
+                }
+              </select>
+              @if (frmForm.get('idIVA').invalid && frmForm.get('idUnidad_Medida').touched) {
+                <div>
+                  @if (frmForm.get('idIVA').hasError('required')) {
+                    <div class="text-danger">IVA % es requerido</div>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="form-group mb-3">
+              <label class="form-label" for="idUnidad_Medida">Unidad de Medida *</label>
+              <select class="form-control" id="idUnidad_Medida" formControlName="idUnidad_Medida">
+                @for (item of lstUMedida; track $index) {
+                  <option [value]="item.idUnidad_Medida">
+                    {{ item.Detalle }}
+                  </option>
+                }
+              </select>
+              @if (frmForm.get('idUnidad_Medida').invalid && frmForm.get('idUnidad_Medida').touched) {
+                <div>
+                  @if (frmForm.get('idUnidad_Medida').hasError('required')) {
+                    <div class="text-danger">Unidad de medida es requerida</div>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 col-md-4">
+            <div class="form-group mb-3">
+              <label class="form-label" for="Cantidad">Cantidad *</label>
+              <input type="text" class="form-control" id="Cantidad" formControlName="Cantidad" placeholder="Cantidad" />
+              @if (frmForm.get('Cantidad').invalid && frmForm.get('Cantidad').touched) {
+                @if (frmForm.get('Cantidad').hasError('required')) {
+                  <div class="text-danger">La Cantidad es requerida</div>
+                }
+              }
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="form-group mb-3">
+              <label class="form-label" for="Valor_Compra">Valor de Compra *</label>
+              <input type="text" class="form-control" id="Valor_Compra" formControlName="Valor_Compra" placeholder="Valor_Compra" />
+              @if (frmForm.get('Valor_Compra').invalid && frmForm.get('Valor_Compra').touched) {
+                @if (frmForm.get('Valor_Compra').hasError('required')) {
+                  <div class="text-danger">El valor de compra es requerido</div>
+                }
+              }
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="form-group mb-3">
+              <label class="form-label" for="Valor_Venta">Valor de Venta *</label>
+              <input type="text" class="form-control" id="Valor_Venta" formControlName="Valor_Venta" placeholder="Valor_Venta" />
+              @if (frmForm.get('Valor_Venta').invalid && frmForm.get('Valor_Venta').touched) {
+                @if (frmForm.get('Valor_Venta').hasError('required')) {
+                  <div class="text-danger">El valor de venta es requerido</div>
+                }
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <label class="form-label" for="idProveedores">Proveedor *</label>
+          <select class="form-control" id="idProveedores" formControlName="idProveedores">
+            @for (item of lstProveedores; track $index) {
+              <option [value]="item.idProveedores">
+                {{ item.Nombre_Empresa }}
+              </option>
+            }
+          </select>
+          @if (frmForm.get('idProveedores').invalid && frmForm.get('idProveedores').touched) {
+            <div>
+              @if (frmForm.get('idProveedores').hasError('required')) {
+                <div class="text-danger">El Proveedor es requerida</div>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="form-group mb-3">
+          <button type="submit" class="btn btn-primary mr-1" [disabled]="frmForm.invalid">Grabar</button>
+          <button (click)="cancelar()" class="btn btn-danger">Cancelar</button>
+        </div>
+      </form>
+    </app-card>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col-sm-12">
+      <app-card cardTitle="Lista de {{Title}}" blockClass="pc-component">
+
+        <div class="row">
+            <div class="col text-end">
+                <button  (click)="nuevo()" class="btn btn-primary mr-1">Nuevo</button>
+                <button  (click)="loadData()" class="btn btn-success">Refrescar</button>
+            </div>
+        </div>
+        
+        <div class="row mt-1">
+            <div class="col text-end">
+                <table class="table table-hover table-striped">
+                    <thead>
+                      <tr>
+                        <th class="text-start">ID</th>
+                        <th class="text-start">Codigo</th>
+                        <th class="text-start">Nombre</th>
+                        <th class="text-center">Graba IVA</th>
+                        <th class="text-center">Unidad Medida</th>
+                        <th class="text-start">IVA</th>
+                        <th class="text-end">Valor Compra</th>
+                        <th class="text-end">Valor Venta</th>
+                        <th class="text-center">Accion</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @for (item of lstProductos; track $index) {
+                        <tr>
+                          <td width="10%" class="text-start">{{item.idProductos}}</td>
+                          <td class="text-start">{{item.Codigo_Barras}}</td>
+                          <td class="text-start">{{item.Nombre_Producto}}</td>
+                          <td class="text-center">{{item.Graba_IVA == 0 ? 'No' : 'Si'}}</td>
+                          <td class="text-center">{{item.Unidad_Medida}}</td>
+                          <td class="text-start">{{item.IVA_Detalle}}</td>
+                          <td class="text-end">{{item.Valor_Compra | number:'1.2-3'}}</td>
+                          <td class="text-end">{{item.Valor_Venta | number:'1.2-3'}}</td>
+                          <td width="20%" class="text-center">
+                            <button (click)="editar(item.idProductos)" class="btn btn-primary mr-1">Editar</button>
+                            <button (click)="eliminar(item.idProductos)" class="btn btn-danger">Eliminar</button>
+                          </td>
+                        </tr>
+                      }
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+      </app-card>
+    </div>
+  </div>
+  
