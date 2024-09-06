@@ -61,8 +61,7 @@ export const NavigationItems: NavigationItem[] = [
         icon: 'profile',
         target: false,
         breadcrumbs: false
-      },
-      
+      }
     ]
   },
   {
@@ -71,6 +70,16 @@ export const NavigationItems: NavigationItem[] = [
     type: 'group',
     icon: 'icon-navigation',
     children: [
+      // {
+      //   id: 'usuarios',
+      //   title: 'Usuarios',
+      //   type: 'item',
+      //   classes: 'nav-item',
+      //   url: '/usuarios',
+      //   icon: 'user',
+      //   target: false,
+      //   breadcrumbs: false
+      // },
       {
         id: 'proveedores',
         title: 'Proveedores',
@@ -81,7 +90,7 @@ export const NavigationItems: NavigationItem[] = [
         target: false,
         breadcrumbs: false
       },
- 
+
       {
         id: 'clientes',
         title: 'Clientes',
@@ -92,47 +101,37 @@ export const NavigationItems: NavigationItem[] = [
         target: false,
         breadcrumbs: false
       },
+
       {
-        id: 'usuarios',
-        title: 'Usuarios',
+        id: 'umedida',
+        title: 'Unidad de Medida',
         type: 'item',
         classes: 'nav-item',
-        url: '/usuarios',
-        icon: 'user',
+        url: '/umedidas',
+        icon: 'profile',
         target: false,
         breadcrumbs: false
       },
-           // {
-      //   id: 'productos',
-      //   title: 'Productos',
-      //   type: 'item',
-      //   classes: 'nav-item',
-      //   url: '/productos',
-      //   icon: 'login',
-      //   target: false,
-      //   breadcrumbs: false
-      // },
+      {
+        id: 'productos',
+        title: 'Productos',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/productos',
+        icon: 'profile',
+        target: false,
+        breadcrumbs: false
+      }
       // {
       //   id: 'impuestos',
       //   title: 'Impuestos',
       //   type: 'item',
       //   classes: 'nav-item',
       //   url: '/impuestos',
-      //   icon: 'login',
-      //   target: false,
-      //   breadcrumbs: false
-      // },
-      // {
-      //   id: 'unidadmedida',
-      //   title: 'Unidad de Medida',
-      //   type: 'item',
-      //   classes: 'nav-item',
-      //   url: '/unidadmedida',
-      //   icon: 'login',
+      //   icon: 'profile',
       //   target: false,
       //   breadcrumbs: false
       // },
     ]
-  },
-
+  }
 ];

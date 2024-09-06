@@ -70,9 +70,11 @@ class Middleware{
         if(!$requestBody){
             $requestBody = $_REQUEST;
         }
-        
-        
 
+        if(!$requestBody){
+            $requestBody = $_GET;
+        }
+        
         return $requestBody;
     }
 

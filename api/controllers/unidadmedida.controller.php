@@ -1,15 +1,11 @@
 <?PHP 
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-header("Allow: GET, POST, OPTIONS, PUT, DELETE");
-$method = $_SERVER["REQUEST_METHOD"];
-if($method == "OPTIONS") {die();}
+include_once("cors.php");
 
 //TODO: Controlador de Unidad de Medida
 
 require_once("../models/unidadmedida.model.php");
 require_once("../middleware/middleware.php");
+require_once("./general.controller.php");
 
 $unidad_medida = new UnidadMedida;   //TODO: se instancia la clase unidad de medida
 $data = Middleware::request();
@@ -32,7 +28,6 @@ switch ($_GET["op"]) {
         $datos = $unidad_medida->uno($idUnidad_Medida);
         $res = mysqli_fetch_assoc($datos);
         echo GeneralController::formatoSalida("ok", $res);
-
         break;
     case "insertar":
         //TODO: Proceso para insertar un proveedor en la tabla unidad de medida
