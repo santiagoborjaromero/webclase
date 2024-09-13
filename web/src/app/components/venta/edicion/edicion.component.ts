@@ -205,7 +205,7 @@ export class EdicionComponent {
 
         if (resp && resp.status == 'ok') {
           this.lstProductos = resp.message;
-          console.log(this.lstProductos)
+          // console.log(this.lstProductos)
           // if (this.idFactura==-1) this.frmForm.get("Clientes_idClientes")?.setValue(this.lstClientes[0].idClientes.toString());
         } else {
           Swal.fire({
