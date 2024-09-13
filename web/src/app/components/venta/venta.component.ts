@@ -9,6 +9,8 @@ import { FacturaInterface } from 'src/app/interfaces/factura.interface';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 
 import Swal from 'sweetalert2';
+import { jsPDF } from "jspdf";
+
 
 @Component({
   selector: 'app-venta',
@@ -107,6 +109,23 @@ export class VentaComponent {
     });
   }
 
- 
+  print(idFactura: number){
+    // const doc = new jsPDF();
+
+    var doc = new jsPDF({
+      orientation: "p",
+      format: 'A4',
+      unit: 'mm'
+    })
+
+
+    
+
+
+    doc.text("Hello world!", 10, 10);
+    doc.save("a4.pdf");
+
+
+  }
 
 }

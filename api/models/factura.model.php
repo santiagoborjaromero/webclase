@@ -62,7 +62,18 @@ class Factura {
             $cadena = "INSERT INTO `factura`(`Fecha`, `Sub_total`, `Sub_total_iva`, `Valor_IVA`, `Clientes_idClientes`) 
                        VALUES ('$Fecha', $Sub_total, $Sub_total_iva, $Valor_IVA, $Clientes_idClientes)";
             if (mysqli_query($con, $cadena)) {
-                return $con->insert_id; // Return the inserted ID
+                $idFactura = $con->insert_id; // Return the inserted ID
+
+                // $cadena = "INSERT INTO `factura`(`Fecha`, `Sub_total`, `Sub_total_iva`, `Valor_IVA`, `Clientes_idClientes`) 
+                // VALUES ('$Fecha', $Sub_total, $Sub_total_iva, $Valor_IVA, $Clientes_idClientes)";
+                // if (mysqli_query($con, $cadena)) {
+                //     $idKardex = $con->insert_id; // Return the inserted ID
+
+                // } else {
+                //     return $con->error;
+                // }
+
+                return $idFactura;
             } else {
                 return $con->error;
             }

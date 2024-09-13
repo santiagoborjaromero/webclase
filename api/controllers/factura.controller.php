@@ -45,8 +45,9 @@ switch ($_GET["op"]) {
         $Sub_total_iva = $data["Sub_total_iva"];
         $Valor_IVA = $data["Valor_IVA"];
         $Clientes_idClientes = intval($data["Clientes_idClientes"]);
+        $items = $data["items"];
         $datos = array();
-        $datos = $factura->insertar($Fecha, $Sub_total, $Sub_total_iva, $Valor_IVA, $Clientes_idClientes);
+        $datos = $factura->insertar($Fecha, $Sub_total, $Sub_total_iva, $Valor_IVA, $Clientes_idClientes, $items);
         echo GeneralController::formatoSalida("ok", $datos);
         break;
     case "actualizar":

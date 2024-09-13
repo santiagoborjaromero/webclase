@@ -1,18 +1,28 @@
+
+
 <div class="row">
   <div class="col-sm-12">
     <app-card cardTitle="{{ Title }}" blockClass="pc-component">
       <form [formGroup]="frmForm" (ngSubmit)="guardar()" (keydown.enter)="$event.preventDefault()">
-        <table class="table">
-          <thead>
-            <tr>
-              <td width="20%"><label class="form-label" for="Fecha">Fecha *</label></td>
-              <td width="20%"><label class="form-label" for="NumeroDoc">Numero de Documento *</label></td>
-              <td><label class="form-label" for="Clientes_idClientes">Cliente *</label></td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
+        <div class="row">
+          <div class="col-4">
+            <h2>{{empresa_nombre}}</h2>
+            RUC: {{empresa_ruc}}<br>
+            Dirección: {{empresa_direccion}}<br>
+            Teléfono: {{empresa_telefono}}<br>
+            Email: {{empresa_correo}}<br>
+          </div>
+          <div class="col-4 text-end">
+            <h4>Factura</h4>
+            <div class="row">
+              <div class="col-6 mt-2">Número Documento</div>
+              <div class="col-6">
+                <input type="text" readonly class="form-control" id="NumeroDoc" formControlName="NumeroDoc" placeholder="000-000-0000000" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6 mt-2">Fecha de emisión</div>
+              <div class="col-6">
                 <input type="date" class="form-control" id="Fecha" formControlName="Fecha" placeholder="aaaa/mm/dd" />
                 @if (frmForm.get('Fecha').invalid && frmForm.get('Fecha').touched) {
                   <div>
@@ -21,11 +31,11 @@
                     }
                   </div>
                 }
-              </td>
-              <td>
-                <input type="text" readonly class="form-control" id="NumeroDoc" formControlName="NumeroDoc" placeholder="000-000-0000000" />
-              </td>
-              <td>
+              </div>
+            </div>
+            <!-- <div class="row">
+              <div class="col-8 mt-2">Cliente</div>
+              <div class="col-4">
                 <select class="form-control" id="Clientes_idClientes" formControlName="Clientes_idClientes">
                   @for (item of lstClientes; track $index) {
                     <option value="{{ item.idClientes }}">{{ item.Nombres }}</option>
@@ -38,6 +48,67 @@
                     }
                   </div>
                 }
+              </div>
+            </div> -->
+          </div>
+          <div class="col-4">
+            <h4>Datos del Ciente</h4>
+            <select *ngIf="false" class="form-control " id="Clientes_idClientes" formControlName="Clientes_idClientes">
+                <option value="">-- Seleccione un cliente --</option>
+              @for (item of lstClientes; track $index) {
+                <option value="{{ item.idClientes }}">{{ item.Nombres }}</option>
+              }
+            </select>
+            <input (keypress)="enterBuscarCliente($event)" (blur)="buscarClientes()"  type="text" class="form-control" 
+              formControlName="buscarCliente" placeholder="Identificacion o Nombre">
+            @if (frmForm.get('Clientes_idClientes').invalid && frmForm.get('Clientes_idClientes').touched) {
+              <div>
+                @if (frmForm.get('Clientes_idClientes').hasError('required')) {
+                  <small class="text-danger">El cliente es requerido</small>
+                }
+              </div>
+            }
+            RUC: {{txtCli_Cedula}}<br>
+            Nombres: {{txtCli_Nombre}}<br>
+            Dirección: {{txtCli_Direccion}}<br>
+            Teléfono: {{txtCli_Telefono}}<br>
+            Email: {{txtCli_Correo}}<br>
+          </div>
+        </div>
+
+        
+        <table class="table table-striped mt-5" width="100%">
+          <thead>
+            <tr>
+              <th width="20%">Codigo</th>
+              <th>Producto</th>
+              <th width="10%">Cantidad</th>
+              <th width="10%">Precio</th>
+              <th width="10%">Total</th>
+              <th width="10%">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                  <input (keypress)="enterBuscarProducto($event)" (blur)="buscarProducto()" type="text"  formControlName="txtCodigo"  class="form-control" placeholder="Codigo">
+              </td>
+              <td>
+                <input readonly  type="text" formControlName="txtProducto" class="form-control" placeholder="Nombre Producto" />
+              </td>
+              <td>
+                <input #txtCantidad (blur)="totalizarItem(true)" type="text" class="form-control text-end" formControlName="txtCantidad"  placeholder="0" />
+              </td>
+              <td>
+                <input readonly type="text" class="form-control text-end"  formControlName="txtPVP"  placeholder="0" />
+              </td>
+              <td>
+                <input readonly type="text" class="form-control text-end"  formControlName="txtTotal"  placeholder="0" />
+              </td>
+              <td width="10%">
+                <button #botonAdd (click)="addItem()" type="button" class="btn btn-primary">
+                  <i class="fa fa-plus"></i>
+                </button>
               </td>
             </tr>
           </tbody>
@@ -54,12 +125,26 @@
               <th width="10%">Acciones</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            @for (item of lstItems; track $index) {
+              <tr>
+                <td>{{item.idProductos}}</td>
+                <td>{{item.Producto}}</td>
+                <td>{{item.Cantidad}}</td>
+                <td>{{item.PVP | number: '1.2-5'}}</td>
+                <td>{{item.Total | number: '1.2-5'}}</td>
+                <td width="15%">
+                  <button type="button" (click)="editar(item.idProductos)" class="btn btn-xs btn-primary mr-1"><i class="fa fa-edit"></i></button>
+                  <button type="button" (click)="eliminar(item.idProductos)" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></button>
+                </td>
+              </tr>
+            }
+          </tbody>
           <tfoot>
             <tr>
               <td colspan="4" class="text-end">SubTotal IVA {{ porcentajeIVA }}%</td>
               <td colspan="2">
-                <input type="text" (blur)="totalizar()" class="form-control text-end" id="Sub_total_iva" formControlName="Sub_total_iva" />
+                <input readonly type="text" (blur)="totalizar()" class="form-control text-end" id="Sub_total_iva" [value]="frmForm.controls['Sub_total_iva'].value | number: '1.2-5'" />
                 @if (frmForm.get('Sub_total_iva').invalid && frmForm.get('Sub_total_iva').touched) {
                   <div>
                     @if (frmForm.get('Sub_total_iva').hasError('required')) {
@@ -72,7 +157,7 @@
             <tr>
               <td colspan="4" class="text-end">SubTotal IVA 0%</td>
               <td colspan="2">
-                <input type="text" (blur)="totalizar()" class="form-control text-end" id="Sub_total" formControlName="Sub_total" />
+                <input readonly type="text" (blur)="totalizar()" class="form-control text-end" id="Sub_total" [value]="frmForm.controls['Sub_total'].value | number: '1.2-5'"/>
               </td>
             </tr>
             <tr>
@@ -90,7 +175,6 @@
             </tr>
             <tr>
               <td colspan="4" class="text-end">IVA {{ porcentajeIVA }}%</td>
-              <!-- <td colspan="2"><input type="text" readonly class="form-control text-end" id="Valor_IVA" formControlName="Valor_IVA" placeholder="0.00" /></td> -->
               <td colspan="2">
                 <input
                   type="text"
@@ -103,16 +187,10 @@
               </td>
             </tr>
             <tr>
-              <td colspan="4" class="text-end">Total</td>
+              <td colspan="4" class="text-end">Importe Total</td>
               <td colspan="2">
-                <input
-                  type="text"
-                  readonly
-                  [value]="frmForm.controls['Total'].value | number: '1.2-5'"
-                  class="form-control text-end"
-                  id="Total"
-                  placeholder="0.00"
-                />
+                <input type="text" readonly [value]="frmForm.controls['Total'].value | number: '1.2-5'"
+                  class="form-control text-end" id="Total" placeholder="0.00" />
                 @if (frmForm.get('Total').invalid) {
                   <div>
                     @if (frmForm.get('Total').hasError('min')) {
@@ -127,9 +205,106 @@
 
         <div class="form-group mb-3">
           <button type="submit" class="btn btn-primary mr-1" [disabled]="frmForm.invalid">Grabar</button>
-          <button (click)="cancelar()" class="btn btn-danger">Cancelar</button>
+          <button type="button" (click)="cancelar()" class="btn btn-danger mr-1">Cancelar</button>
+          <button type="button" (click)="print()" class="btn btn-secondary">Imprimir</button>
         </div>
       </form>
     </app-card>
+  </div>
+</div>
+
+
+<div #addProductModal class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content modalW">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addProductModalLabel">Listado de Productos</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body scroll">
+        <div class="row">
+          <label class="col-6 col-md-2" for="">Producto a buscar</label>
+          <div class="col-6 col-md-4">
+            <input type="text" class="form-control" [(ngModel)]="txtBuscar">
+          </div>
+          <div class="col-6 col-md-4">
+            <button class="btn btn-info" (click)="buscarProducto(txtBuscar, false)" type="button">Buscar</button>
+          </div>
+        </div>
+        <table class="table" width="100%">
+          <thead>
+            <tr>
+              <th>Codigo</th>
+              <th>Producto</th>
+              <th>Stock</th>
+              <th>PVP</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of lstProdSeleccionados; track $index) {
+              <tr>
+                <td>{{item.Codigo_Barras}}</td>
+                <td>{{item.Nombre_Producto}}</td>
+                <td>{{item.Cantidad}}</td>
+                <td>{{item.Valor_Venta}}</td>
+                <td>
+                  <button (click)="seleccionarItem(item.idProductos)" class="btn btn-primary" type="button">
+                    <i class="fa fa-plus"></i>
+                  </button>
+                </td>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div #ClienteModal class="modal fade" id="ClienteModal " tabindex="-1" aria-labelledby="ClienteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content modalW">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ClienteModalLabel">Listado de Clientes</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body scroll">
+        <div class="row">
+          <label class="col-6 col-md-2" for="">Cliente a buscar</label>
+          <div class="col-6 col-md-4">
+            <input type="text" class="form-control" [(ngModel)]="txtBuscarCliente">
+          </div>
+          <div class="col-6 col-md-4">
+            <button class="btn btn-info" (click)="buscarClientes(txtBuscarCliente, false)" type="button">Buscar</button>
+          </div>
+        </div>
+        <table class="table" width="100%">
+          <thead>
+            <tr>
+              <th>Cedula</th>
+              <th>nombre</th>
+              <th>Direccion</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of lstClienteSeleccionado; track $index) {
+              <tr>
+                <td>{{item.Cedula}}</td>
+                <td>{{item.Nombres}}</td>
+                <td>{{item.Direccion}}</td>
+                <td>
+                  <button (click)="seleccionarItemCliente(item.idClientes)" class="btn btn-primary" type="button">
+                    <i class="fa fa-plus"></i>
+                  </button>
+                </td>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
