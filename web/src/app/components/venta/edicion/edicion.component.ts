@@ -117,27 +117,27 @@ export class EdicionComponent {
     this.loadClientes();
     this.loadProductos();
 
-
-    this.lstItems.push({
-        idProductos: 2,
-        Codigo: "789456123",
-        Producto: "Producto A",
-        Cantidad: 100.0000,
-        PVP: 80.0000,
-        Total: 180,
-        GrabaIVA: 1,
-        Stock: 1000
-    });
-    this.lstItems.push({
-        idProductos: 1,
-        Codigo: "0603124578",
-        Producto: "Producto B",
-        Cantidad: 200.0000,
-        PVP: 150.0000,
-        Total: 30000,
-        GrabaIVA: 1,
-        Stock: 1000
-    });
+    //MOCk
+    // this.lstItems.push({
+    //     idProductos: 2,
+    //     Codigo: "789456123",
+    //     Producto: "Producto A",
+    //     Cantidad: 100.0000,
+    //     PVP: 80.0000,
+    //     Total: 180,
+    //     GrabaIVA: 1,
+    //     Stock: 1000
+    // });
+    // this.lstItems.push({
+    //     idProductos: 1,
+    //     Codigo: "0603124578",
+    //     Producto: "Producto B",
+    //     Cantidad: 200.0000,
+    //     PVP: 150.0000,
+    //     Total: 30000,
+    //     GrabaIVA: 1,
+    //     Stock: 1000
+    // });
 
   }
 
